@@ -2,9 +2,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
-
 from project import errors
-
 admin.site.site_header = getattr(settings, "SITE_HEADER", "Qjango by Qux")
 admin.site.site_title = getattr(settings, "SITE_TITLE", "Qjango")
 
@@ -17,6 +15,10 @@ urlpatterns = [
     path("cover/", TemplateView.as_view(template_name="cover.html"), name="cover"),
     path("google/", TemplateView.as_view(template_name="google.html"), name="google"),
     path("", include("apps.gizmo.urls.appurls"), name="gizmo"),
+    path("doc/", include('apps.doc_upload.appurls')),
+    path('api/v1/', include('apps.doc_upload.apiurls')),
+
+
 ]
 
 handler400 = "project.errors.error_badrequest"

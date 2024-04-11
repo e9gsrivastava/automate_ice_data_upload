@@ -57,6 +57,9 @@ INSTALLED_APPS = [
     "qux.auth",
     "qux.token",
     "apps.gizmo",
+    "apps.doc_upload",
+    'rest_framework.authtoken',
+
 ]
 
 MIDDLEWARE = [
@@ -187,16 +190,29 @@ HTML_MINIFY = True
 # Qux Auth
 LOGIN_URL = "/login/"
 LOGOUT_URL = "/logout/"
-LOGIN_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = "/doc/upload"
 LOGOUT_REDIRECT_URL = "/"
 
 REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework.authentication.SessionAuthentication",
-        "qux.token.models.CustomTokenAuthentication",
-    ),
-    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    # "DEFAULT_AUTHENTICATION_CLASSES": (
+    #     "rest_framework.authentication.SessionAuthentication",
+    #     "qux.token.models.CustomTokenAuthentication",
+    # ),
+    # "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     # "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.openeapi.AutoSchema",
+
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 10,
+
+
+     'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated', 
+    ],
 }
 
 # graph_models

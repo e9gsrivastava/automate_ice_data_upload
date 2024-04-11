@@ -147,3 +147,10 @@ uploads/
 #vue related
 node_modules/
 
+
+
+# doc_upload
+__pycache__/
+venv
+db.sqlite3
+.env

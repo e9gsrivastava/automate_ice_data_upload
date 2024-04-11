@@ -1,80 +1,60 @@
-# Qjango - A Qux Django Template
+# docvault
 
-## Getting Started
+This web application allows users to upload zip files containing PDF documents, extract them, and process the data within the PDFs. It is built using Django.
 
-```
-account="quxdev"
-repo="qjango"
+## Features
 
-git clone https://github.com/${account}/${repo}.git
-cd ${repo}
+- Allows users to upload zip files containing PDF documents.
+- Extracts the PDF documents from the uploaded zip file.
+- Processes the data within the PDF documents.
+- Users can specify a start date for processing the data.
+- Provides feedback messages to users about the upload process.
 
-# Update submodules
-git submodule update --init
+## Installation
 
-# Create virtual environment
-python3 -m venv venv
+1. Clone the repository:
 
-if [[ $OSTYPE != darwin* ]]; then
-    sed -i '' 's/PS1=\"(venv)/PS1=\"(venv:${repo})/g' venv/bin/activate
-else
-    sed -i 's/PS1=\"(venv)/PS1=\"(venv:${repo})/g' venv/bin/activate
-fi
+    ```bash
+    git clone https://github.com/e9gsrivastava/ice_data_upload.git
+    ```
 
-# Activate virtual environment
-source venv/bin/activate
+2. Navigate to the project directory:
 
-# Upgrade pip and install packages
-pip install --upgrade pip
-pip install -r requirements.txt
+    ```bash
+    cd doc_vault
+    ```
 
-# Migrate models to db.sqlite3
-python manage.py migrate
+3. Install the required dependencies:
 
-# Configure project/.env
-dotenv="project/.env"
-if [ ! -f dotenv ]; then
-    touch ${dotenv}
-    secret=$(python manage.py generate_secret_key)
-    echo "DJANGO_SECRET_KEY=\"${secret}\"" >> ${dotenv}
-    echo "DJANGO_DEBUG=true" >> ${dotenv}
-    echo "BOOTSTRAP=bs5" >> ${dotenv}
-fi
+    ```bash
+    pip install -r requirements.txt
+    ```
 
-# Runserver and test
-python manage.py runserver
-```
+4. Run the Django server:
 
-## ENVIRONMENT
+    ```bash
+    python manage.py runserver
+    ```
 
-### Django
+5. Access the application in your web browser at `http://localhost:8000`.
 
-- `DJANGO_SECRET_KEY`
-- `DJANGO_DEBUG`
-- `DJANGO_ALLOWED_HOSTS`
-- `DJANGO_SITE_ID`
-- `BOOTSTRAP=bs5`
+## Usage
 
-### Database
+1. Access the web application in your browser and log in to proceed to the upload page.
+2. On the upload page, select a zip file containing PDF documents.
+3. Specify a start date for processing the data by choosing a date from the calendar input.
+4. Click the "Upload" button to initiate the upload and processing.
+5. After the upload process completes, you will receive a message indicating the number of files uploaded and the username.
+6. The filenames are saved in the database (SQLite), and you can view them in the admin panel.
+7. To view the list of uploaded filenames via API, you can send a GET request to `http://localhost:8000/api/v1/file`. Note that you must have the necessary permissions and be authenticated to access this endpoint.
 
-- `DB_TYPE` = `[sqlite3|mysql]`
-- `DB_NAME`
-- `DB_USERNAME`
-- `DB_PASSWORD`
-- `DB_HOST`
-- `DB_PORT`
+## System Dependencies
+ Note: Install JDK to run Tabula for PDF parsing
 
-### wsgi.py
+## Environment Variables
+Create an `.env` file in the root directory with the following variables:
+SOURCE = ""
+S3_BUCKET = ""
 
-!! There is no reason to set these by default.
+Note: keep the variables name same, and Ensure to add the `.env` file to `.gitignore` to keep your sensitive information safe.
 
-- `DJANGO_SETTINGS_MODULE`
-- `DJANGO_PYTHON_PATH`
-
-## Templates
-
-### `_blank.html`
-
-1. `qux_page_title_extra`: additional classes in heading
-2. `qux_page_title`: page title
-3. `qux_page_content`: page content
